@@ -1,0 +1,53 @@
+<?php
+require 'conexion.php';
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Donación</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<nav>
+  <a href="form_proyecto.html">Registrar Proyecto</a>
+  <a href="form_donante.html">Registrar Donante</a>
+  <a href="form_donacion.php">Registrar Donación</a>
+  <a href="reporte_donaciones.php">Ver Reporte</a>
+</nav>
+
+<div class="container">
+  <h2>Registrar Donación</h2>
+  <form action="insertar_donacion.php" method="post">
+    <label for="monto">Monto:</label>
+    <input type="number" name="monto" id="monto" min="1" required>
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" id="fecha" required>
+
+    <label for="id_proyecto">Proyecto:</label>
+    <select name="id_proyecto" id="id_proyecto" required>
+      <?php
+      $proyectos = $pdo->query("SELECT id_proyecto, nombre FROM PROYECTO");
+      foreach ($proyectos as $row) {
+          echo "<option value='{$row['id_proyecto']}'>{$row['nombre']}</option>";
+      }
+      ?>
+    </select>
+
+    <label for="id_donante">Donante:</label>
+    <select name="id_donante" id="id_donante" required>
+      <?php
+      $donantes = $pdo->query("SELECT id_donante, nombre FROM DONANTE");
+      foreach ($donantes as $row) {
+          echo "<option value='{$row['id_donante']}'>{$row['nombre']}</option>";
+      }
+      ?>
+    </select>
+
+    <input type="submit" value="Registrar Donación">
+  </form>
+</div>
+</body>
+</html>

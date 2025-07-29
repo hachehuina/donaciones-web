@@ -1,0 +1,31 @@
+CREATE DATABASE IF NOT EXISTS ORGANIZACION;
+USE ORGANIZACION;
+
+CREATE TABLE IF NOT EXISTS PROYECTO (
+    id_proyecto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    presupuesto DECIMAL(10,2),
+    fecha_inicio DATE,
+    fecha_fin DATE
+);
+
+CREATE TABLE IF NOT EXISTS DONANTE (
+    id_donante INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
+    direccion VARCHAR(150),
+    telefono VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS DONACION (
+    id_donacion INT AUTO_INCREMENT PRIMARY KEY,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    id_proyecto INT NOT NULL,
+    id_donante INT NOT NULL,
+    FOREIGN KEY (id_proyecto) REFERENCES PROYECTO(id_proyecto)
+      ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_donante) REFERENCES DONANTE(id_donante)
+      ON DELETE CASCADE ON UPDATE CASCADE
+);
